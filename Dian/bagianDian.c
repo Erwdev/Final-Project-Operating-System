@@ -28,19 +28,21 @@ void* buy_milk(void* arg) {
 }
 
 int main() {
-    pthread_t thread1, thread2;
+    pthread_t threads[100];  // Create an array to hold thread IDs
     int frig_data[2] = {0, 0}; // frig_data[0] is milk, frig_data[1] is note
 
     // Initialize the mutex
     pthread_mutex_init(&mutex, NULL);
 
-    // Create two threads to simulate two people trying to buy milk
-    pthread_create(&thread1, NULL, buy_milk, frig_data);
-    pthread_create(&thread2, NULL, buy_milk, frig_data);
+    // Create 10 threads to simulate 10 people trying to buy milk
+    for (int i = 0; i < 100; i++) {
+        pthread_create(&threads[i], NULL, buy_milk, frig_data);
+    }
 
-    // Wait for both threads to finish
-    pthread_join(thread1, NULL);
-    pthread_join(thread2, NULL);
+    // Wait for all threads to finish
+    for (int i = 0; i < 100; i++) {
+        pthread_join(threads[i], NULL);
+    }
 
     // Destroy the mutex
     pthread_mutex_destroy(&mutex);
