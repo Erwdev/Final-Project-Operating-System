@@ -25,6 +25,7 @@
 //     return NULL;
 // }
 
+
 int lock = 0; //indikasi kulkas lagi gak dikunci
 
 bool testSet(int *lock) {
@@ -35,6 +36,15 @@ bool testSet(int *lock) {
 
 //bakal input nilai awal dari fridge lock bit
 
+void Acquire(int *lock){
+    do{
+        while(lock);
+    }while(testSet(&lock));
+}
+
+void Release(){
+    lock = 0;
+}
 void* buyMilkLock1(void *arg){
     int *fridge_data = (int *)arg;
     int *milk = &fridge_data[0];
