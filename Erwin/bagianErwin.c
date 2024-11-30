@@ -78,6 +78,7 @@ int main(){
 
 /**
  * TODO : design and implement a locking algorithm similiar to solution 3 limit the locking algorithm using atomic operation like test and set or other method and also value assignment dan conditional
+ * masih ada deadlock di desainnya mungkin ada di bagian test and set
  */
 
 /**
