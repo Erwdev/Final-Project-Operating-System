@@ -25,15 +25,34 @@
 //     return NULL;
 // }
 
+<<<<<<< HEAD
 
 int lock = 0; //indikasi kulkas lagi gak dikunci
 
+=======
+int* lock = 0; //indikasi kulkas lagi gak dikunci
+int guard = 0;
+>>>>>>> addingGuard
 bool testSet(int *lock) {
-    bool old_value = *lock;
-    *lock = 1;
+    // bool old_value = *lock;
+    // *lock = 1;
+    // return old_value;
+
+    int old_value, new_value;
+    do{
+        old_value = *lock;
+        new_value = 1;
+    }while (_sync_val_compate_and_swap(lock, old_value, new_value) != old_value);
     return old_value;
 }//using this function naively will still expose this part to the switching done by the operating system
 
+void acquire(){
+    while(testSet(&lock));
+}
+
+void release(){
+    lock = 0;
+}
 //bakal input nilai awal dari fridge lock bit
 
 void Acquire(int *lock){
@@ -49,16 +68,18 @@ void* buyMilkLock1(void *arg){
     int *fridge_data = (int *)arg;
     int *milk = &fridge_data[0];
 
-    while (testSet(&lock)){
-        //busy waiting here might use another method like breaking a loop 
-    }
+    // while (testSet(&lock)){
+    //     //busy waiting here might use another method like breaking a loop 
+    // }
+    acquire();
     //critical segment
     if(*milk == 0){
         *milk += 1;
         printf("Buying milk from: %d, now there are: %d\n", pthread_self(), *milk);
     }
     //critical segment
-    lock = 0;
+    // lock = 0;
+    release();
     return NULL;
 }
 
