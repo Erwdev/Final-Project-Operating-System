@@ -1,6 +1,8 @@
+
 #include <pthread.h>
 #include <stdio.h>
 #include <unistd.h>
+
 int milk = 0;
 int flag[3] = {0,0,0};
 int turn = 0;
@@ -10,16 +12,17 @@ void* buyMilk(void* arg){
     flag[id] = 1;
     turn = ( id+1 ) % 3;
 
-    while(flag[(id+1)%3] && turn == (id+1)%3){
-
+    while(flag[( id+1 ) % 3] && turn == ( id+1 ) % 3){
+        //busy wait
     }
-
-    if(milk == 0){
-        milk++;
+    int bought = 0;
+    if(milk == 0 && !bought){
+        milk = 1;
+        bought = 1;
         printf("Thread %d (tid: %lu) bought milk +1",id+1, pthread_self());
     }
+    
     flag[id] = 0;
-
     return NULL;
 }    
 
