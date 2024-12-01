@@ -35,7 +35,7 @@ void* buy_milk(void* arg) {
 }
 
 int main() {
-    #define NUM_THREADS 50
+    #define NUM_THREADS 1000
     #define NUM_ITERATIONS 1000000
 
     srand(time(NULL));  // Initialize random seed
