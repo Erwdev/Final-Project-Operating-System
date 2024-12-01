@@ -42,7 +42,7 @@ void *buyMilk(void *arg)
     flag[id] = 0;
     return NULL;
 }
-#define NUM_TEST 10000
+#define NUM_TEST 1000000
 int main()
 {   
     int thread1Count = 0;
@@ -88,6 +88,7 @@ int main()
     printf("Thread1 bought milk:%d times\n", thread1Count);
     printf("Thread2 bought milk:%d times\n", thread2Count);
     printf("Thread3 bought milk:%d times\n", thread3Count);
+
 
     return 0;
 }
