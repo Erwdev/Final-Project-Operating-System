@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#define NUM_THREAD 100
-#define NUM_TEST 100
+#define NUM_THREAD 3
+#define NUM_TEST 10000
 
 int milk = 0;
 int flag[3] = {0, 0, 0};
@@ -72,7 +72,7 @@ int main()
     pthread_t threads[NUM_THREAD];
     int thread_ids[NUM_THREAD];
     int total_errors = 0;
-    
+
     for (int j = 0; j < NUM_TEST; j++)
     {
         printf("\nTest #%d:\n", j + 1);
@@ -92,6 +92,6 @@ int main()
     // pthread_join(thread1, NULL);
     // pthread_join(thread2, NULL);
     // pthread_join(thread3, NULL);
-
+    printf("Total error(race condition) detected: %d", total_errors);
     return 0;
 }
